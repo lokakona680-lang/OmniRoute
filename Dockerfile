@@ -414,7 +414,7 @@ RUN --mount=type=cache,id=s/92ca8a61-c1ba-421f-a389-d48ac7258c2d-apt-cache,targe
 # `cli_not_found` handling is correct but every PAT login fails with
 # `spawn qodercli ENOENT`. Same pinning rationale as the tools above.
 # npm 12 requires an explicit allowlist for required global lifecycle scripts.
-RUN --mount=type=cache,id=s/92ca8a61-c1ba-421f-a389-d48ac7258c2d-npm-cache,target=/root/.npm \
+RUN --mount=type=cache,id=s/c0f5fb96-c489-46de-90df-ae62724e0175-npm-cache,target=/root/.npm \
   npm install -g --no-audit --no-fund --allow-scripts=@anthropic-ai/claude-code,@qoder-ai/qodercli,droid,openclaw,sharp,@google/genai,tree-sitter-bash,protobufjs \
     @openai/codex@0.165.0 \
     @anthropic-ai/claude-code@2.1.260 \
@@ -424,7 +424,7 @@ RUN --mount=type=cache,id=s/92ca8a61-c1ba-421f-a389-d48ac7258c2d-npm-cache,targe
 
 USER node
 
-RUN --network=none codex --version \
+RUN  codex --version \
   && claude --version \
   && droid --version \
   && openclaw --version \
@@ -443,7 +443,7 @@ FROM runner-cli-core AS runner-cli
 
 USER root
 
-RUN --mount=type=cache,id=s/92ca8a61-c1ba-421f-a389-d48ac7258c2d-apt-cache,target=/var/cache/apt,sharing=locked \
+RUN --mount=type=cache,id=s/c0f5fb96-c489-46de-90df-ae62724e0175-apt-cache,target=/var/cache/apt,sharing=locked \
   --mount=type=cache,id=s/92ca8a61-c1ba-421f-a389-d48ac7258c2d-apt-lists,target=/var/lib/apt/lists,sharing=locked \
   apt-get update \
   && apt-get install -y --no-install-recommends docker.io docker-compose \
